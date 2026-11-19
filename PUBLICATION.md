@@ -3,7 +3,7 @@
 ## Avant toute mise en ligne
 
 - [ ] Confirmer le nom d’auteur, l’affiliation éventuelle, la date de publication et la version.
-- [ ] Choisir les licences applicables au texte, aux figures, aux scripts et aux données. Ne pas attribuer de licence aux éléments tiers sans en avoir le droit.
+- [x] Licences choisies : CC BY 4.0 pour l’étude, les figures et données originales ; MIT pour les scripts. Les droits de tiers restent exclus ; voir [LICENCES.md](LICENCES.md).
 - [ ] Vérifier que les exports de 30 jours, les modèles utilisés et les statistiques personnelles peuvent être rendus publics. Les agrégats ne contiennent pas les conversations, mais ils restent des données d’usage personnelles.
 - [ ] Préciser les dates exactes de la fenêtre et les versions du harness, de Prime et des modèles quand elles sont connues.
 - [ ] Retrouver les traces du pilote ARC-AGI-3 et réconcilier la divergence sur les outils du premier essai. En leur absence, conserver la réserve et présenter le texte comme un retour d’expérience préliminaire.
@@ -13,7 +13,7 @@
 ## GitHub
 
 1. Créer un dépôt dédié et y placer **le contenu de ce dossier** à la racine. Ne pas publier automatiquement tout le monorepo Claake Code.
-2. Ajouter les licences choisies et, si souhaité, un fichier `CITATION.cff` avec des métadonnées confirmées ; ne pas inventer de DOI ni de numéro de version.
+2. Les licences choisies sont documentées ; ajouter, si souhaité, un fichier `CITATION.cff` avec des métadonnées confirmées, sans inventer de DOI ni de numéro de version.
 3. Vérifier les liens du README et de l’étude, puis créer une release du dépôt d’étude une fois la version relue.
 
 ## Zenodo

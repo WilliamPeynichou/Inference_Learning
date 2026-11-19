@@ -35,4 +35,4 @@ Les fichiers CSV de performance contiennent **deux tableaux successifs avec des 
 
 ## Citation et réutilisation
 
-L’auteur, la version, le DOI éventuel et les licences doivent être confirmés avant publication. Voir [PUBLICATION.md](PUBLICATION.md). Aucune licence de réutilisation n’est accordée par ce fichier ; ne pas présumer que les noms de produits ou les données de tiers sont libres de droits.
+L’étude, les figures originales et les données originales de `etude/` sont réutilisables sous **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)** ; les scripts de `etude/scripts/` sont sous **[licence MIT](etude/scripts/LICENSE)**. Voir [LICENCES.md](LICENCES.md) pour le périmètre et les éléments tiers. Le DOI et la version d’archive seront ajoutés après publication sur Zenodo.
