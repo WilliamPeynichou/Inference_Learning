@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="496" viewBox="0 0 960 496" role="img" aria-labelledby="title desc">
-<title id="title">Niveau 1 : 15 puis 13 coups de jeu</title>
-<desc id="desc">Chat avec outils : 15 coups dont 8 avant le motif. RLM : 13 dont 6 avant le motif. Le second segment reste à 7. Comparaison non contrôlée.</desc>
+<title id="title">Level 1: 15 then 13 game moves</title>
+<desc id="desc">Classic chat: 15 moves, 8 before the pattern. RLM: 13 moves, 6 before the pattern. The second segment remains 7. Uncontrolled comparison.</desc>
 <style>
   text{font-family:system-ui,sans-serif;fill:#182637}
   .title{font-family:Georgia,serif;font-size:32px;font-weight:700}
@@ -9,14 +9,14 @@
   .strong{font-size:16px;font-weight:700}.light{font-size:16px;font-weight:700;fill:white}
 </style>
 <rect width="960" height="496" fill="#fff"/>
-<text x="48" y="40" class="meta" text-anchor="start">FIGURE 01    /    RÉSULTAT DESCRIPTIF</text>
-<text x="48" y="82" class="title" text-anchor="start">Niveau 1 : 15 puis 13 coups de jeu</text>
+<text x="48" y="40" class="meta" text-anchor="start">FIGURE 01    /    DESCRIPTIVE RESULT</text>
+<text x="48" y="82" class="title" text-anchor="start">Level 1: 15 then 13 game moves</text>
 <path d="M48 105L912 105" fill="none" stroke="#8695a4"/>
-<text x="48" y="138" class="note" text-anchor="start">ARC-AGI-3 · Jeu ls20 · Deux essais séquentiels, un seul jeu</text>
+<text x="48" y="138" class="note" text-anchor="start">ARC-AGI-3 | ls20 | Two sequential trials, one game</text>
 <rect x="244" y="158" width="14" height="14" fill="#294e70"/>
-<text x="267" y="170" class="note" text-anchor="start">Jusqu’au motif</text>
+<text x="267" y="170" class="note" text-anchor="start">To pattern</text>
 <rect x="443" y="158" width="14" height="14" fill="#d7e1ea"/>
-<text x="466" y="170" class="note" text-anchor="start">Du motif au cadre</text>
+<text x="466" y="170" class="note" text-anchor="start">Pattern to frame</text>
 <path d="M244.0 190L244.0 309" fill="none" stroke="#c9d0d7"/>
 <text x="244.0" y="331" class="note" text-anchor="middle">0</text>
 <path d="M430.67 190L430.67 309" fill="none" stroke="#c9d0d7"/>
@@ -25,7 +25,7 @@
 <text x="617.33" y="331" class="note" text-anchor="middle">10</text>
 <path d="M804.0 190L804.0 309" fill="none" stroke="#c9d0d7"/>
 <text x="804.0" y="331" class="note" text-anchor="middle">15</text>
-<text x="48" y="223" class="strong" text-anchor="start">Chat avec outils</text>
+<text x="48" y="223" class="strong" text-anchor="start">Classic chat</text>
 <rect x="244.00" y="202" width="298.67" height="32" fill="#294e70"/>
 <text x="393.33" y="224" class="light" text-anchor="middle">8</text>
 <rect x="542.67" y="202" width="261.33" height="32" fill="#d7e1ea"/>
@@ -37,9 +37,9 @@
 <rect x="468.00" y="261" width="261.33" height="32" fill="#d7e1ea"/>
 <text x="598.67" y="283" class="strong" text-anchor="middle">7</text>
 <text x="744.33" y="283" class="strong" text-anchor="start">13</text>
-<text x="524" y="361" class="body" text-anchor="middle">Coups de jeu jusqu’à la validation du niveau 1</text>
+<text x="524" y="361" class="body" text-anchor="middle">Game moves to first-level completion</text>
 <path d="M48 385L912 385" fill="none" stroke="#c9d0d7"/>
-<text x="48" y="414" class="strong" text-anchor="start">Écart descriptif : −2 coups (−13,3 %), intégralement avant le motif.</text>
-<text x="48" y="443" class="note" text-anchor="start">Attribution des outils à vérifier. Pas d’A/B contrôlé ni de mesure des tours de chat.</text>
-<text x="48" y="469" class="note" text-anchor="start">Sources : essais.csv et rapport.md. Les journaux bruts ne sont pas disponibles.</text>
+<text x="48" y="414" class="strong" text-anchor="start">Descriptive difference: -2 moves (-13.3%), entirely before the pattern.</text>
+<text x="48" y="443" class="note" text-anchor="start">Tool attribution unconfirmed. No controlled A/B or chat-turn measurements.</text>
+<text x="48" y="469" class="note" text-anchor="start">Sources: essais.csv and pilot report. Raw logs unavailable.</text>
 </svg>

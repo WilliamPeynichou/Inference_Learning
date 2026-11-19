@@ -1,23 +1,23 @@
-# Index de l’étude
+# Study Index
 
-**[Lire l’étude complète](etude.md)** : un seul document principal, avec ses figures intégrées et ses limites explicitées.
+**[Read the complete study](etude.md)** for the technical background, exploratory pilot, usage data, and limitations.
 
-## Annexes et sources
+## Appendices and sources
 
-- [Rapport du pilote ARC-AGI-3](annexes/rapport.md) et [données du pilote](donnees/essais.csv).
-- [Observabilité et hypothèses](annexes/observabilite-rlm.md) et [protocole proposé](annexes/protocole.md).
-- Exports de performance : [chat classique](donnees/performance-modeles-chat-30j.csv), [RLM](donnees/performance-modeles-RLM-30j.csv), [relevé chat](donnees/perfChat.md) et [relevé RLM](donnees/perfRLM.md).
-- [Figures SVG](figures/) et [scripts de génération](scripts/).
+- [ARC-AGI-3 pilot report](annexes/rapport.md) and [pilot data](donnees/essais.csv).
+- [Observability and hypotheses](annexes/observabilite-rlm.md) and [proposed protocol](annexes/protocole.md).
+- Performance exports: [classic chat](donnees/performance-modeles-chat-30j.csv), [RLM](donnees/performance-modeles-RLM-30j.csv), [classic interface snapshot](donnees/perfChat.md), and [RLM interface snapshot](donnees/perfRLM.md).
+- [SVG figures](figures/) and [figure generators](scripts/).
 
-Les exports contiennent chacun deux tableaux distincts. La section de tokens du RLM est vide : l’usage est inconnu, pas nul. Les outils du premier essai ARC-AGI-3 sont également à confirmer ; les restitutions divergent.
+Each performance export contains two distinct tables. RLM token usage is unavailable, not zero. The first ARC-AGI-3 trial's tools remain unconfirmed because accounts differ.
 
-## Régénérer les figures
+## Reproduce figures
 
-Depuis ce dossier, avec Python 3.8 ou plus récent et sans dépendance externe :
+From this directory, with Python 3.8 or later and no external dependencies:
 
 ```sh
 python3 scripts/generer_graphique.py
 python3 scripts/generer_erreurs.py
 ```
 
-Les scripts lisent `donnees/` et écrivent dans `figures/`, sans lancer le jeu ni modifier les données.
+Scripts read `donnees/` and write to `figures/`; they do not run the game or alter source data.

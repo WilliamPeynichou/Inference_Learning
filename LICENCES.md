@@ -1,7 +1,7 @@
-# Licences et périmètre
+# Licenses and Scope
 
-- L’étude, les textes, les figures originales et les données/exportations originales du dossier `etude/`, dans la mesure des droits détenus par l’auteur, sont mis à disposition sous **Creative Commons Attribution 4.0 International (CC BY 4.0)** : <https://creativecommons.org/licenses/by/4.0/legalcode.fr>. Leur réutilisation et adaptation sont autorisées, y compris commercialement, sous réserve d’attribution et des autres conditions de la licence.
-- Les scripts originaux situés dans `etude/scripts/` sont distribués sous la [licence MIT](etude/scripts/LICENSE).
-- Les marques, noms de produits, jeux et autres éléments de tiers ne sont pas couverts par ces autorisations lorsque l’auteur ne détient pas les droits nécessaires. La licence ne supprime pas les éventuels droits de tiers ni les obligations liées à la protection des données.
+- The study, text, original figures, and original data/exports under `etude/` are licensed, to the extent the author holds the relevant rights, under **Creative Commons Attribution 4.0 International (CC BY 4.0)**: <https://creativecommons.org/licenses/by/4.0/legalcode>. Reuse and adaptation, including commercial use, are permitted subject to attribution and the other license conditions.
+- Original scripts under `etude/scripts/` are distributed under the [MIT License](etude/scripts/LICENSE).
+- Trademarks, product names, games, and other third-party materials are not covered by these permissions where the author does not hold the necessary rights. The licenses do not remove third-party rights or data-protection obligations.
 
-Pour l’attribution, citer William Peynichou, le titre de l’étude, sa version et l’URL ou le DOI de la version utilisée lorsqu’ils sont disponibles.
+For attribution, cite William Peynichou, the study title, version, and the URL or DOI of the version used when available.

@@ -1,103 +1,101 @@
-# Harness RLM et apprentissage à l’inférence : retour d’expérience sur un usage personnel
+# RLM Harnesses and Inference-Time Learning: An Observational Case Study
 
-**Version de travail publique — retour d’expérience indépendant, non évalué par les pairs.** Les observations et essais décrits ici ont été réalisés dans **Claake Code, l’IDE développé par l’auteur**, qui en est également utilisateur. Ce document rassemble un pilote sur ARC-AGI-3 et des exports agrégés sur 30 jours. Les dates exactes, l’historique complet du pilote et certaines définitions restent à confirmer. Cette proximité avec le système étudié aide à en comprendre le fonctionnement, mais peut influencer l’interprétation.
+**Public working draft. Independent practitioner report, not peer reviewed.** The observations and experiments described here were conducted in **Claake Code, the IDE developed and used by the author**. They include an ARC-AGI-3 pilot and 30-day aggregate usage exports. Exact dates, the complete pilot history, and some definitions remain to be verified. The author's role as developer of the system provides technical insight but may also influence interpretation.
 
-## Résumé
+## Abstract
 
-Un harness ne se limite pas à transmettre une question à un modèle : il organise ses outils, ses appels et l’état de travail. Ce retour d’expérience examine deux parcours de Claake Code, le chat classique et le chat RLM fondé sur Prime Agent, avec une question centrale : **comment la conservation de calculs et leur réutilisation dans une session influencent-elles le travail de l’agent et de son utilisateur ?**
+A harness does more than pass a question to a model: it organizes tools, calls, and working state. This report examines two paths in Claake Code, classic chat and RLM chat based on Prime Agent. The central question is: **how might preserving and reusing computations within a session affect an agent's work and its user's experience?**
 
-L’auteur rapporte une utilisation quotidienne comparable des deux parcours, sans changement intentionnel de manière de travailler. Il observe une production qu’il juge plus importante, des tâches initialement longues puis des tours plus courts lorsque le calcul se réutilise, ainsi qu’une moindre pression ressentie sur les limites de certains modèles. Il soupçonne une économie importante de tokens. **Ces impressions ne sont pas quantifiées par les exports RLM disponibles.**
+The author reports comparable everyday use of both paths, without intentionally changing working practices. The author perceives higher productivity, longer initial workflows followed by shorter turns as computation is reused, and less frequent rate-limit pressure on some models. A substantial token saving is suspected. **The available RLM exports do not quantify these impressions.**
 
-Un pilote sur le jeu `ls20` d’ARC-AGI-3 rapporte une validation en 15 puis 13 coups de jeu. Un transfert Auto Compute entre le chat classique et le RLM est rapporté par l’auteur ; la chronologie exacte et les outils employés restent à réconcilier avec le rapport existant. Les statistiques de 30 jours montrent notamment des différences descriptives d’erreurs de tour par modèle, mais les tâches ne sont pas appariées et les mesures d’usage en tokens du RLM sont absentes. Ce texte propose un cadre pour poursuivre les mesures, sans revendiquer un résultat causal.
+An ARC-AGI-3 pilot on `ls20` reports level completion in 15 and then 13 game moves. The author reports an Auto Compute handoff from classic chat to RLM; the exact chronology and tools remain to be reconciled with the original report. Thirty-day statistics show descriptive differences in recorded turn errors by model, but tasks are not paired and RLM token usage measurements are unavailable. This document outlines a framework for further measurement without claiming a causal result.
 
-**Sommaire :** [1. Harness](#1-pourquoi-étudier-le-harness) · [2. Apprentissage à l’inférence](#2-que-signifie-ici--apprentissage-à-linférence-) · [3. Pilote ARC-AGI-3](#3-pilote-exploratoire--arc-agi-3-jeu-ls20) · [4. Observabilité](#4-observabilité-de-30-jours--données-disponibles) · [5. Mesures futures](#5-comment-poursuivre-la-mesure-) · [6. Conclusion](#6-conclusion-provisoire).
+## 1. Why study the harness?
 
-## 1. Pourquoi étudier le harness ?
+A model generates responses from the context it receives. The **harness** is the software environment that organizes its work: it prepares context, provides tools, receives results, and coordinates subsequent operations. Two paths using the same model can therefore behave differently when their tools, state, and interaction rules differ.
 
-Un modèle produit des réponses à partir du contexte qui lui est transmis. Le **harness** est l’environnement logiciel qui organise son travail : il prépare ce contexte, donne accès à des outils, reçoit leurs résultats et coordonne la suite des opérations. Deux parcours utilisant le même modèle peuvent donc se comporter différemment si leurs outils, leur état et leurs règles d’interaction diffèrent.
+The experiments took place in [Claake Code](https://github.com/WilliamPeynichou/ClaakeCode), the author's own IDE. Its classic and RLM chats are distinct paths. The former provides specialized tools; the latter relies on Prime Agent and a persistent Python runtime that lets the agent execute code and call programmable capabilities. **This is not an absolute distinction between having Python and not having Python**: the classic chat's exact capabilities depend on its configuration and must be specified for each trial.
 
-Les essais présentés ont été menés dans [Claake Code](https://github.com/WilliamPeynichou/ClaakeCode), l’IDE personnel développé par l’auteur. Son chat classique et son chat RLM sont deux parcours distincts. Le premier présente à l’agent des outils spécialisés. Le second s’appuie sur Prime Agent et un environnement Python persistant ; Prime expose notamment un REPL dans lequel l’agent peut exécuter du code et appeler des capacités programmatiques. **Ce n’est pas une opposition absolue entre « avec Python » et « sans Python »** : les capacités exactes du chat classique dépendent de sa configuration et doivent être précisées pour chaque essai.
+A potential practical benefit is shifting some reconstruction into a usable state: structured data, functions, hypotheses, and plans may be maintained within a session rather than rebuilt from scratch at each step. Their costs and benefits remain to be measured.
 
-L’intérêt pratique est de déplacer une partie du travail de reconstruction vers un état exploitable : données structurées, fonctions, hypothèses et plans peuvent être maintenus au cours d’une session plutôt que reconstitués entièrement à chaque étape. Cela ouvre des possibilités ; leur coût et leurs bénéfices doivent encore être mesurés.
+## 2. What is meant by inference-time learning?
 
-## 2. Que signifie ici « apprentissage à l’inférence » ?
+Here, the term describes **changes in the work and artifacts reused while the model is in use**, not changes to model weights. An agent can observe, construct a method, test it, and reuse it later in the session. In this operational sense, learning concerns the whole system: model, harness, and state, rather than model retraining.
 
-Dans ce document, l’expression désigne **un changement du travail et des éléments réutilisés pendant l’usage du modèle**, et non une modification de ses poids. Un agent peut observer, construire une méthode, la tester et la réemployer dans la suite de la session. Appeler cela « apprentissage » décrit ici une capacité opérationnelle du système complet — modèle, harness et état — plutôt qu’un entraînement du modèle lui-même.
+Prime's Python runtime executes cells in a shared namespace for the runtime's lifetime. A function created in one cell or a grid loaded into memory can be reused by a later cell. The model must still know what to call and interpret the results returned by the harness; preserving an object does not establish correct use.
 
-Le runtime Python de Prime exécute des cellules dans un même espace de noms pendant sa durée de vie. Une fonction créée dans une cellule ou une grille chargée en mémoire peut donc être réutilisée par une cellule ultérieure. Le modèle doit néanmoins savoir quoi appeler et interpréter les résultats que le harness lui transmet ; conserver un objet ne prouve pas qu’il sera utilisé correctement.
+![Figure 2: observation, Python state, computation, and verification.](figures/rlm-mecanisme.svg)
 
-![Figure 2 — observation, état Python, calcul et vérification.](figures/rlm-mecanisme.svg)
+*Figure 2. Conceptual sequence inspired by the pilot: observation, structured state, computation, and verification. Reuse is possible within a session; its effect remains to be isolated experimentally.*
 
-*Figure 2. Schéma conceptuel inspiré du pilote : observation → état structuré → calcul → vérification. Le réemploi est possible dans une même session ; son effet reste à isoler expérimentalement.*
+Three mechanisms must be distinguished:
 
-Trois mécanismes sont à distinguer :
+- **Session Python state:** objects, variables, and functions in a live runtime. The author reports reuse within a session; survival after shutdown is not established here.
+- **Persisted memory or artifacts:** files, notes, or methods explicitly saved and later reloaded. Their existence does not mean the live Python namespace survived.
+- **Provider prompt cache:** a separate mechanism for reusing parts of model input. It can coexist with persistent Python and depends on the provider and instrumentation.
 
-- **État Python de la session** : objets, variables et fonctions présents dans le runtime vivant. L’auteur rapporte leur réemploi dans une même session ; ce document ne démontre pas leur survie à une fermeture.
-- **Mémoire ou artefacts persistés** : fichiers, notes ou méthodes enregistrés puis rechargés explicitement. Leur existence ne signifie pas que l’espace Python vivant a survécu.
-- **Cache de prompt du fournisseur** : mécanisme distinct de réutilisation de parties du contexte envoyé au modèle. Il peut coexister avec Python persistant ; son utilisation dépend du fournisseur et de l’instrumentation.
+The author associates this approach with user-specific scalability: adapting methods to individual needs, reusing acquired artifacts, and potentially scaling workloads. These are distinct questions; the present data do not establish multi-task or multi-user scalability.
 
-L’auteur associe cette approche à une « scalabilité propre à l’utilisateur » : adaptation des méthodes à ses besoins, réutilisation des acquis et possibilité de montée en charge. Ce sont trois pistes distinctes ; les données présentées ici ne démontrent pas encore la montée en charge multi-tâches ou multi-utilisateurs.
+## 3. Exploratory pilot: ARC-AGI-3 `ls20`
 
-## 3. Pilote exploratoire : ARC-AGI-3, jeu `ls20`
+The pilot reports a first level-one solution in **15 moves**, followed by a recalculated path in **13 moves**, a descriptive difference of **2 moves (13.3%)**. The segment before the pattern changes from 8 to 6 moves, while the segment between the pattern and the frame remains at 7. The 13-move path was replayed. Trials run to 30 actions completed one level; level two was not completed.
 
-Le pilote rapporte un premier trajet validant le niveau 1 en **15 coups**, puis un trajet recalculé en **13 coups**, soit un écart descriptif de **2 coups (13,3 %)**. Le segment avant le motif passe de 8 à 6 coups ; celui entre le motif et le cadre reste à 7. Le trajet de 13 coups a été rejoué. Les essais menés jusqu’à 30 actions terminent un niveau ; le niveau 2 n’a pas été terminé.
+![Figure 1: decomposition of the 15- and 13-move paths.](figures/ls20-coups.svg)
 
-![Figure 1 — décomposition des trajets à 15 et 13 coups.](figures/ls20-coups.svg)
+*Figure 1. Game moves to level-one completion, not chat turns or tokens. Source: `essais.csv` and `rapport.md`. Read with the qualification below.*
 
-*Figure 1. Coups de jeu jusqu’à la validation du niveau 1, et non tours de chat ni tokens. Source : `essais.csv` et `rapport.md`. La figure est à lire avec la réserve ci-dessous.*
+According to the author's later account, classic chat produced the 15-move path, after which Auto Compute transferred the conversation and tool results to a new RLM chat, which succeeded in 13 moves. The author reports the same model was used and that classic chat did not use Python. **The earlier pilot report instead stated that Python was already used in the first automated trial.** Raw logs had not been recovered when this document was written, so the exact tools, chronology, and meaning of “first attempt” require verification against the expected transcripts.
 
-Selon le témoignage recueilli ensuite, le chat classique a réalisé le trajet de 15 coups, puis Auto Compute a transmis la conversation et des résultats d’outils à un nouveau chat RLM, qui a réussi en 13 coups. L’auteur indique que le même modèle était utilisé et que le chat classique n’utilisait pas Python. **Le rapport du pilote indique au contraire que Python était déjà utilisé dans le premier essai automatisé.** Les journaux bruts n’ont pas été retrouvés au moment de la rédaction : les outils exacts, la chronologie et la nature de « premier essai » restent donc à vérifier dans les restitutions et l’historique attendus.
+Even if this chronology is confirmed, the RLM would have received context from previous work. This would illustrate an **informed handoff**, not a cold-start comparison. The trials are sequential, cover one game, and do not isolate the effects of the REPL, Auto Compute, or transferred history. Thirteen is the shortest path found in the tested transition model, not a proven global minimum. The [pilot report](annexes/rapport.md) includes the timeout and other trials.
 
-Même si cette chronologie est confirmée, le RLM aurait reçu un contexte issu du travail précédent. Le cas illustrerait alors une **reprise informée**, et non une comparaison à froid. Les essais sont séquentiels, portent sur un seul jeu et n’isolent pas l’effet propre du REPL, d’Auto Compute ou de l’historique transmis. Treize coups est le plus court trajet trouvé dans le modèle testé, pas un minimum absolu établi. Les résultats détaillés et le timeout sont dans le [rapport du pilote](annexes/rapport.md).
+## 4. Thirty-day observability: available data
 
-## 4. Observabilité de 30 jours : données disponibles
+The [classic chat CSV](donnees/performance-modeles-chat-30j.csv) and [RLM CSV](donnees/performance-modeles-RLM-30j.csv), alongside the [classic](donnees/perfChat.md) and [RLM](donnees/perfRLM.md) interface snapshots, describe the author's personal use. Exact start and end dates remain to be documented. The author reports no intentional change in working practices, but the files cannot pair tasks or establish equivalent difficulty.
 
-Les fichiers [`performance-modeles-chat-30j.csv`](donnees/performance-modeles-chat-30j.csv) et [`performance-modeles-RLM-30j.csv`](donnees/performance-modeles-RLM-30j.csv), accompagnés de [`perfChat.md`](donnees/perfChat.md) et [`perfRLM.md`](donnees/perfRLM.md), décrivent l’usage personnel de l’auteur. Les dates exactes de début et de fin restent à documenter. L’auteur indique ne pas avoir intentionnellement modifié sa manière de travailler entre les deux modes, mais les fichiers ne permettent pas d’apparier les tâches ni d’établir leur difficulté respective.
+Each CSV contains **two consecutive tables**: historical statistics and a `measured_harness` section of measured turns. They must be imported separately. The RLM export's first section contains no rows; the second contains **79 turns** across five models. All five rows report `usage_turns = 0`: **token usage is unknown, not zero**. Fable 5.2 has no RLM row in this export.
 
-Chaque CSV contient **deux tableaux successifs** : des statistiques issues de l’historique, puis une section `measured_harness` avec des tours mesurés. Ils doivent être importés séparément. La première section de l’export RLM ne contient aucune ligne ; la seconde contient **79 tours** répartis sur cinq modèles. Les cinq lignes indiquent `usage_turns = 0` : **l’usage en tokens est inconnu, pas nul**. Le RLM Fable 5.2 ne figure pas dans cet export.
+Durations are medians grouped by model and path. Since tasks are unpaired and sample sizes differ, they describe observed usage, not an intrinsic speed difference. Duration and first-token medians are calculated independently, sometimes from different subsets, and should not be interpreted as a single representative turn.
 
-Les durées présentées sont des médianes par modèle et parcours. Comme les tâches ne sont pas appariées et que le nombre de tours varie, elles décrivent cet usage mais ne mesurent pas une différence intrinsèque de vitesse. Les médianes de durée et de premier token sont calculées séparément, parfois sur des ensembles de tours différents : il ne faut pas les traiter comme si elles décrivaient un même tour représentatif.
+### 4.1 Turn errors by model
 
-### 4.1 Erreurs de tour : une lecture par modèle
+![Figure 4: recorded turn errors by model.](figures/erreurs-par-modele.svg)
 
-![Figure 4 — erreurs de tour par modèle commun.](figures/erreurs-par-modele.svg)
+*Figure 4. Turns recorded as errors divided by measured turns, for models in both `measured_harness` sections, excluding subagents. A turn error is not necessarily a model error; tasks and sample sizes differ.*
 
-*Figure 4. Nombre de tours enregistrés en erreur / nombre de tours mesurés, pour les modèles présents dans les deux sections `measured_harness`, hors sous-agents. Les erreurs de tour ne sont pas nécessairement des erreurs du modèle ; les tâches et tailles d’échantillon diffèrent.*
+For Opus 5.5, the exports report **0 errors in 30 RLM turns**, versus **18 in 163 classic turns**. For 6.1 Sol, they report **9 in 22 RLM turns**, versus **12 in 99 classic turns**. Zero observed errors in 30 turns does not establish zero risk; these findings do not justify an overall ranking of the paths.
 
-Pour Opus 5.5, les exports indiquent **0 erreur sur 30 tours RLM**, contre **18 sur 163 tours classiques**. Pour 6.1 Sol, ils indiquent **9 sur 22 tours RLM**, contre **12 sur 99 tours classiques**. Un taux nul avec 30 tours ne démontre pas l’absence de risque, et ces constats ne permettent pas de classer globalement les deux parcours.
+The author reports that the 6.1 Sol RLM errors came from a Prime Agent instance issue that has since been fixed. The exact link between that incident and the nine turns is not documented by traces in this repository. The errors remain in the raw figures; a sensitivity analysis could isolate them only after verifiable identification.
 
-L’auteur indique que les erreurs RLM 6.1 Sol provenaient d’un problème d’instances côté Prime Agent corrigé depuis. Le lien précis entre cet incident et les neuf tours n’est pas encore documenté par des traces dans le dossier. Les erreurs restent donc incluses dans les chiffres bruts ; une analyse complémentaire ne pourrait les isoler qu’après identification vérifiable.
+The Markdown snapshots and CSVs were reportedly captured at the same time, but some counts differ. For example, classic Sonnet 5.5 shows 134 turns in Markdown and 137 in the CSV. Filters or view refresh behavior remain to be checked. The figure uses CSV values without mixing them with the snapshots.
 
-Les fichiers Markdown et CSV ont été déclarés relevés au même moment, mais certains effectifs diffèrent : par exemple, Sonnet 5.5 classique affiche 134 tours dans le Markdown et 137 dans le CSV. Les filtres ou l’actualisation de la vue restent à vérifier. La figure utilise les CSV, sans mélanger leurs valeurs avec celles des Markdown.
+### 4.2 Tokens, cache, and rate limits
 
-### 4.2 Tokens, cache et limites : ne pas transformer une absence en résultat
+The author reports a **strong impression of token savings**, short visible output when task commentary is not requested, and an apparently input-dominated usage profile. Rate limits also appear to arrive later with Opus 5.5, Fable 5.2, and 6.2 Sol.
 
-L’auteur rapporte une **forte impression d’économie de tokens**, une sortie visible courte lorsqu’il ne demande pas de commentaires, et une entrée qui lui paraît dominante. Il observe aussi que les limites semblent arriver moins vite sur Opus 5.5, Fable 5.2 et 6.2 Sol.
+These observations motivate the study, but the available exports cannot calculate RLM token savings or determine when a limit was reached or reset. A variable in Python does not consume model tokens merely by existing; code, references, or results actually transmitted to the model can consume tokens. Short visible output does not establish fewer reasoning tokens either.
 
-Ces observations motivent l’étude, mais les exports disponibles ne permettent pas de calculer une économie de tokens RLM ni d’établir quand une limite a été atteinte ou réinitialisée. Une variable présente dans Python ne consomme pas de tokens par sa seule présence ; le code, les références ou les résultats effectivement transmis au modèle peuvent en consommer. Une sortie visible courte ne prouve pas non plus que les tokens de raisonnement sont moins nombreux.
+## 5. Next steps for measurement
 
-## 5. Comment poursuivre la mesure ?
+![Figure 3: reported observations and proposed measurements.](figures/rlm-hypotheses.svg)
 
-![Figure 3 — observations d’usage et mesures proposées.](figures/rlm-hypotheses.svg)
+*Figure 3. Hypotheses from personal use, not quantified results.*
 
-*Figure 3. Hypothèses issues de l’usage personnel ; elles ne représentent pas des résultats chiffrés.*
+Future records should include, per turn, the model and settings, task type, model and tool calls, duration, outcome, and usage counters **when actually available**. Created, reused, or reconstructed Python objects should also be distinguished without logging private contents.
 
-La prochaine étape consiste à conserver, pour chaque tour, le modèle et sa configuration, le type de tâche, les appels modèle et outils, la durée, l’issue, et les compteurs d’usage **quand ils sont effectivement disponibles**. Il faudra aussi distinguer les objets Python créés, réutilisés ou reconstruits, sans enregistrer leur contenu privé.
+The [proposed protocol](annexes/protocole.md) first compares reset Python with persistent Python under equal capabilities and with Auto Compute disabled. Separate ablations then consider automatic triggering and textual memory. Useful comparisons require paired tasks and models, success criteria fixed in advance, and all calls counted, including failures.
 
-Pour examiner le mécanisme, le [protocole proposé](annexes/protocole.md) compare d’abord Python réinitialisé et Python persistant avec les mêmes capacités et Auto Compute désactivé. Il prévoit ensuite des ablations séparées pour le déclenchement automatique et la mémoire textuelle. Une comparaison utile demanderait des tâches et modèles appariés, des critères de réussite fixés avant les essais et la prise en compte du coût de tous les appels, y compris les échecs.
+For rate limits, measure work before the first block, time to resumption, starting quota where known, and other usage sharing the window. For tokens, first expose and verify RLM measurements and their provider-specific semantics; missing must never silently become zero. See the [observability appendix](annexes/observabilite-rlm.md).
 
-Pour les limites fournisseur, il faudra mesurer séparément le travail avant le premier blocage, le délai de reprise, le quota de départ lorsqu’il est connu et les autres usages partageant la fenêtre. Pour les tokens, il faut d’abord exposer et vérifier les mesures RLM et leur sémantique par fournisseur ; un champ non renseigné ne doit jamais devenir un zéro implicite. Le détail des champs proposés figure dans [Observabilité RLM](annexes/observabilite-rlm.md).
+## 6. Provisional conclusion
 
-## 6. Conclusion provisoire
+The author's experience is encouraging enough to motivate investigation: a live Python environment can provide an agent with a workspace for preserving and reusing computations. The `ls20` pilot and usage statistics are concrete starting points, but **they establish neither token savings, a general error reduction, nor a causal RLM advantage**.
 
-L’expérience de l’auteur est suffisamment encourageante pour justifier une investigation : un environnement Python vivant peut fournir à l’agent un espace de travail où conserver et réutiliser des calculs. Le pilote `ls20` et les statistiques d’usage donnent des points de départ concrets, mais **ne démontrent ni une économie de tokens, ni une réduction générale des erreurs, ni un gain causal du RLM**.
+Further work will examine which methods are actually reused, how much they cost to construct, whether they help on unseen tasks, and whether perceived gains persist at comparable quality and under comparable conditions.
 
-La suite recherchera ce qui peut être établi : quelles méthodes sont réellement réutilisées, combien coûte leur construction, si elles aident sur des tâches inédites et si les gains perçus persistent à qualité et conditions comparables.
+## Sources and reproduction
 
-## Sources et reproduction
-
-- [Rapport du pilote et limites](annexes/rapport.md) ; [données du pilote](donnees/essais.csv).
-- [Observabilité et hypothèses](annexes/observabilite-rlm.md) ; [protocole non exécuté](annexes/protocole.md).
-- [Données chat](donnees/performance-modeles-chat-30j.csv) et [données RLM](donnees/performance-modeles-RLM-30j.csv), usage personnel agrégé.
-- Figures 1 à 3 : `python3 scripts/generer_graphique.py` ; figure 4 : `python3 scripts/generer_erreurs.py`, depuis ce dossier.
-- Avant diffusion publique : vérifier la confidentialité des exports, préciser les versions et dates, retrouver les traces ARC-AGI-3 et réconcilier les divergences signalées.
+- [Pilot report](annexes/rapport.md) and [pilot data](donnees/essais.csv).
+- [Observability hypotheses](annexes/observabilite-rlm.md) and [unexecuted protocol](annexes/protocole.md).
+- [Classic chat data](donnees/performance-modeles-chat-30j.csv) and [RLM data](donnees/performance-modeles-RLM-30j.csv), aggregated personal usage.
+- Figures 1 to 3: `python3 scripts/generer_graphique.py`; Figure 4: `python3 scripts/generer_erreurs.py`, from this directory.
+- Before external dissemination, verify export privacy, document versions and dates, recover ARC-AGI-3 traces, and reconcile the stated discrepancies.

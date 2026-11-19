@@ -1,29 +1,29 @@
-# Harness RLM et apprentissage à l’inférence
+# RLM Harnesses and Inference-Time Learning
 
-Retour d’expérience indépendant sur Claake Code : fonctionnement d’un harness RLM, pilote exploratoire ARC-AGI-3 et observabilité d’un usage personnel sur 30 jours.
+An independent practitioner report on Claake Code: a persistent Python harness, an exploratory ARC-AGI-3 pilot, and 30 days of personal usage observability.
 
-**[Lire l’étude complète](etude/etude.md)** · [Données et protocole](etude/README.md)
+**[Read the complete study](etude/etude.md)** | [Data and protocol](etude/README.md) | [Publication checklist](PUBLICATION.md)
 
-## Résultats et limites en bref
+## Findings and limitations
 
-- Le pilote `ls20` rapporte un trajet passant de 15 à 13 coups de jeu. Les essais sont séquentiels et non contrôlés ; l’attribution exacte des outils du premier essai reste à vérifier.
-- Les exports décrivent l’usage personnel d’un auteur. Les tâches ne sont pas appariées et les compteurs de tokens RLM ne sont pas disponibles : l’économie de tokens reste une observation non chiffrée.
-- Ce document est un retour d’expérience en cours, **non évalué par les pairs** ; son auteur développe le système étudié.
+- The `ls20` pilot reports a change from 15 to 13 game moves. Trials are sequential and uncontrolled; the first trial's exact tools remain to be verified.
+- The exports describe one author's personal usage. Tasks are not paired and RLM token counters are unavailable, so token savings remain an unquantified observation.
+- This is ongoing work, **not peer reviewed**. The author also develops the system studied.
 
-## Structure
+## Repository structure
 
 ```text
-etude/etude.md         Texte intégral de l’étude
-etude/annexes/         Rapport du pilote, protocole et observabilité
-etude/donnees/         Exports personnels et données du pilote
-etude/figures/         Visuels SVG intégrés à l’étude
-etude/scripts/         Générateurs reproductibles des figures
-PUBLICATION.md         Vérifications GitHub et Zenodo avant diffusion
+etude/etude.md         Complete study
+etude/annexes/         Pilot report, protocol, observability
+etude/donnees/         Personal usage exports and pilot data
+etude/figures/         Four SVG figures
+etude/scripts/         Reproducible figure generators
+PUBLICATION.md         GitHub and Zenodo checklist
 ```
 
-## Reproduire les figures
+## Reproduce the figures
 
-Avec Python 3.8 ou plus récent, sans dépendance externe :
+With Python 3.8 or later and no external dependencies:
 
 ```sh
 cd etude
@@ -31,8 +31,8 @@ python3 scripts/generer_graphique.py
 python3 scripts/generer_erreurs.py
 ```
 
-Les fichiers CSV de performance contiennent **deux tableaux successifs avec des en-têtes différents** ; il ne faut pas les charger comme un seul tableau. Leurs valeurs manquantes ne sont pas des zéros. Les chiffres du pilote proviennent d’une restitution, les journaux bruts n’étant pas disponibles.
+Each performance CSV contains **two consecutive tables with different headers** and must not be imported as a single table. Missing values are not zeros. The `ls20` figures rely on a reported reconstruction, not independently available raw logs.
 
-## Citation et réutilisation
+## Citation and reuse
 
-L’étude, les figures originales et les données originales de `etude/` sont réutilisables sous **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)** ; les scripts de `etude/scripts/` sont sous **[licence MIT](etude/scripts/LICENSE)**. Voir [LICENCES.md](LICENCES.md) pour le périmètre et les éléments tiers. Le DOI et la version d’archive seront ajoutés après publication sur Zenodo.
+The study, original figures, and original data in `etude/` are available under **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)**. Scripts in `etude/scripts/` are under the **[MIT License](etude/scripts/LICENSE)**. See [LICENCES.md](LICENCES.md) for scope and third-party rights. An archive version and DOI will be added after Zenodo publication.

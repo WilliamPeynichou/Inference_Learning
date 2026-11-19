@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
-<title id="title">Erreurs de tour enregistrées par modèle</title>
-<desc id="desc">Comparaison descriptive des erreurs de tour dans les exports de chat classique et RLM, par modèle commun. Les tâches ne sont pas appariées et les causes des erreurs peuvent différer.</desc>
+<title id="title">Recorded turn errors by model</title>
+<desc id="desc">Descriptive comparison of recorded turn errors by common model. Tasks are unpaired and causes may differ.</desc>
 <style>text{font-family:system-ui,sans-serif;fill:#172637;font-size:16px}.title{font:bold 29px Georgia,serif}.small{font-size:14px;fill:#405266}.header{font-size:14px;font-weight:bold;fill:#345577}</style>
 <rect width="960" height="560" fill="white"/>
-<text x="40" y="38" class="header">FIGURE 4 / USAGE PERSONNEL SUR 30 JOURS</text>
-<text x="40" y="80" class="title">Erreurs de tour enregistrées, par modèle</text>
-<text x="40" y="111" class="small">Tâches non appariées · toutes erreurs confondues · effectifs différents</text>
-<text x="40" y="153" class="header">MODÈLE</text><text x="330" y="153" class="header">CHAT CLASSIQUE</text><text x="610" y="153" class="header">RLM</text>
+<text x="40" y="38" class="header">FIGURE 4 / 30 DAYS OF PERSONAL USAGE</text>
+<text x="40" y="80" class="title">Recorded turn errors by model</text>
+<text x="40" y="111" class="small">Unpaired tasks | all recorded errors | unequal sample sizes</text>
+<text x="40" y="153" class="header">MODEL</text><text x="330" y="153" class="header">CLASSIC CHAT</text><text x="610" y="153" class="header">RLM</text>
 <path d="M40 169H920" stroke="#dde4ea"/>
 <text x="40" y="194">claude-opus-5-5</text>
 <text x="330" y="194">18 / 163 (11.0 %)</text>
@@ -28,7 +28,7 @@
 <text x="330" y="406">0 / 39 (0.0 %)</text>
 <text x="610" y="406">0 / 12 (0.0 %)</text>
 <path d="M40 440H920" stroke="#9caab7"/>
-<text x="40" y="470" class="small">Un taux nul avec peu de tours ne démontre pas l’absence de risque. Les erreurs</text>
-<text x="40" y="492" class="small">peuvent provenir du modèle, du fournisseur, du harness ou d’un autre composant.</text>
-<text x="40" y="525" class="small">Source : sections measured_harness des exports CSV fournis ; données agrégées.</text>
+<text x="40" y="470" class="small">Zero observed errors in a small sample does not establish zero risk. Errors</text>
+<text x="40" y="492" class="small">may originate in the model, provider, harness, or another component.</text>
+<text x="40" y="525" class="small">Source: measured_harness sections of supplied CSV exports; aggregated data.</text>
 </svg>

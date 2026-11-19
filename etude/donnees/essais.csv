@@ -1,6 +1,6 @@
 id,jeu,mode,essai,coups_validation_n1,actions_tentees,dernier_coup_confirme,niveaux_termines_observes,motif_arret,timeout_s,action_issue_inconnue,observation
-manuel,ls20,manuel,Jeu assisté manuellement,26,30,30,1,budget,,,L’utilisateur saisissait les actions et renvoyait les grilles.
-direct,ls20,automatise,Lancement direct interrompu,,,12,0,timeout,120,13,Le résultat du coup 13 est inconnu.
-auto-complet,ls20,automatise,Premier essai automatisé complet,15,30,30,1,budget,,,Outils exacts non confirmés : les restitutions divergent.
-recalcule,ls20,automatise,Trajet recalculé,13,13,13,1,volontaire,,,Recherche en largeur à partir des grilles et fonctions conservées dans le REPL.
-rejeu,ls20,automatise,Rejeu et exploration,13,30,30,1,budget,,,Au coup 30 le motif 0/1 du niveau 2 inverse le dessin de haut en bas.
+manuel,ls20,manuel,Manually assisted play,26,30,30,1,budget,,,The user entered actions and relayed grids.
+direct,ls20,automatise,Interrupted direct run,,,12,0,timeout,120,13,The outcome of move 13 is unknown.
+auto-complet,ls20,automatise,First complete automated trial,15,30,30,1,budget,,,Exact tools unconfirmed because accounts differ.
+recalcule,ls20,automatise,Recalculated path,13,13,13,1,volontaire,,,Breadth-first search using grids and functions retained in the REPL.
+rejeu,ls20,automatise,Replay and exploration,13,30,30,1,budget,,,At move 30 the level-two 0/1 pattern inverted the drawing vertically.

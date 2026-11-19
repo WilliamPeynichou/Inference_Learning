@@ -1,71 +1,71 @@
-# Protocole proposé — non exécuté
+# Proposed Protocol: Not Executed
 
-## 1. Comparaison principale et ablations
+## 1. Main comparison and ablations
 
-| Contraste | Conditions | Question |
+| Contrast | Conditions | Question |
 |---|---|---|
-| A / B | **A** : harness classique avec `Grep`, `Glob`, `Read` et terminal, sans REPL persistant ni mémoire importée. **B** : IPython persistant seul, sans mémoire textuelle importée et avec Auto Compute désactivé. | Quel est l’effet du changement complet d’interface ? Ce contraste ne permet pas d’attribuer un écart à la seule persistance. |
-| Persistance | Python réinitialisé à chaque appel / même Python et mêmes commandes autorisées, mais IPython persistant. Auto Compute désactivé ; pas de mémoire importée. | Quel travail est évité quand les objets survivent entre appels ? |
-| Déclenchement | Même IPython persistant sans / avec Auto Compute. | Quel est l’effet du déclenchement automatique, distinct de la possibilité de calculer ? |
-| Mémoire textuelle | Sessions neuves avec IPython initialement vide, sans / avec le même artefact textuel chargé explicitement au démarrage. | Qu’apporte le rappel d’une règle ou d’un résultat, à configuration égale ? |
-| Format (si faisable) | Sessions neuves ; même méthode générique importée soit en texte, soit comme fonction Python dans le REPL. Même signature logique, préconditions, critères de décision et cas d’essai. | La représentation exécutable facilite-t-elle la réutilisation ? Ni le texte ni le code ne doit embarquer la réponse. |
+| A / B | **A:** classic harness with `Grep`, `Glob`, `Read`, and terminal, without a persistent REPL or imported memory. **B:** persistent IPython only, without imported textual memory and with Auto Compute disabled. | What is the effect of the complete interface change? This contrast cannot attribute a difference to persistence alone. |
+| Persistence | Python reset after each call versus the same Python and allowed commands with persistent IPython. Auto Compute disabled; no imported memory. | What reconstruction is avoided when objects survive between calls? |
+| Triggering | Same persistent IPython without versus with Auto Compute. | What is the effect of automatic triggering, distinct from the ability to compute? |
+| Textual memory | Fresh sessions with initially empty IPython, without versus with the same text artifact explicitly loaded at startup. | What does recalling a rule or result contribute under otherwise equal conditions? |
+| Format, if feasible | Fresh sessions with the same generic method imported as text or as a Python function. Match logical signature, preconditions, decision criteria, and test cases. | Does executable representation facilitate reuse? Neither representation may contain the answer. |
 
-En B, l’agent lit et structure les observations, calcule, conserve l’état et pilote le runner depuis IPython via l’interface autorisée. Pas d’accès à des outils de recherche ou de lecture spécialisés, même via wrappers, appels shell ou processus enfants. En A, le terminal n’est pas un moyen de recréer un REPL persistant ou d’importer des acquis. Toutes les conditions utilisent le même runner et accèdent au même contenu d’observation.
+In B, the agent reads and structures observations, computes, retains state, and controls the runner from IPython through the authorized interface. No specialized search or reading tools may be accessed, including through wrappers, shell calls, or child processes. In A, the terminal must not recreate a persistent REPL or import prior knowledge. All conditions use the same runner and observation content.
 
-Dans l’ablation de persistance, les deux groupes peuvent relire les messages, sorties d’outils et observations confirmées de **leur essai courant** encore présents dans le contexte, selon les mêmes règles de troncature/compaction. Le groupe sans état peut reconstruire ses variables depuis ce contexte, mais chaque appel s’exécute dans un environnement neuf, sans répertoire inscriptible partagé, services ou processus persistants, ni stockage externe. Le runner conserve uniquement l’état nécessaire au jeu ; son interface ne sert pas de stockage auxiliaire. Hors bras de restauration, limiter la persistance supplémentaire du bras IPython à ses objets en mémoire. Appliquer et vérifier ces restrictions hors des prompts, avant l’évaluation.
+For the persistence ablation, both groups may reread messages, tool outputs, and confirmed observations from **their current trial** still in context, under identical truncation and compaction rules. The stateless group may rebuild variables from that context, but each call runs in a fresh environment with no shared writable directory, persistent services or processes, or external storage. The runner retains only game state and is not auxiliary storage. Outside restoration arms, limit additional IPython persistence to in-memory objects. Enforce and verify these restrictions outside prompts before evaluation.
 
-Pour Auto Compute, fixer avant les essais le déclencheur (par exemple après chaque nouvelle grille confirmée), le travail demandé (structurer la grille, tester l’hypothèse courante si elle est calculable, conserver le résultat) et son plafond. Garder les mêmes capacités de calcul dans les deux bras : sans automatisme, l’agent peut déclencher le même travail lui-même. Compter tous les appels, tokens et temps supplémentaires dans le budget du bras automatique. Les actions de jeu restent soumises à la même interface et au même plafond.
+For Auto Compute, specify the trigger, requested work, and cap before trials. Both arms retain the same computational capabilities: without automation, the agent can invoke the work itself. Count all extra calls, tokens, and time in the automated arm. Game actions use the same interface and budget.
 
-### Deux tests distincts autour de la persistance
+### Distinct persistence tests
 
-1. **Compaction, même session.** À une étape préenregistrée, placer une grille et une fonction testable dans le REPL, puis compacter le contexte selon une règle identique. Vérifier dans un appel suivant, sans reconstruction, l’existence des objets, l’empreinte de la grille et la sortie de la fonction sur un cas fixé. Consigner à part la récupération depuis le résumé du contexte, qui ne prouve pas la survie de l’objet.
-2. **Restauration, nouvelle session.** Fermer le REPL, redémarrer avec un espace de noms neuf et comparer sans/avec une restauration explicite depuis un instantané autorisé et inventorié. Refaire les mêmes tests et mesurer le coût de restauration. Aucun historique conversationnel ni mémoire textuelle ne doit être réinjecté dans ce contraste. La survie à une compaction ne démontre pas la restauration.
+1. **Compaction within a session.** At a preregistered step, put a grid and testable function in the REPL, then compact context under the same rule. On a later call, without reconstruction, check object existence, grid fingerprint, and function output on a fixed case. Record recovery from the textual summary separately; it does not establish object survival.
+2. **Restoration in a new session.** Close the REPL, restart with a fresh namespace, and compare no restoration against explicit restoration from an authorized, inventoried snapshot. Repeat the tests and measure restoration cost. Do not reintroduce conversation history or textual memory. Survival through compaction does not demonstrate restoration.
 
-## 2. Exploration, gel des acquis, évaluation
+## 2. Exploration, artifact freeze, evaluation
 
-1. **Explorer** sur des jeux autorisés, avec un budget fixé d’avance. Consigner hors de portée des futurs agents chaque boucle observation → hypothèse → calcul vérifiable → action → vérification → conservation. Garder les hypothèses réfutées distinctes des acquis validés.
-2. **Figer et inventorier** avant l’évaluation : version, empreinte, provenance, type (trajet, règle, fonction, état), vérification qui le soutient et conditions autorisées à l’importer. Séparer les artefacts spécifiques à un niveau des méthodes génériques ; vérifier les deux représentations d’une méthode sur les mêmes cas de développement.
-3. **Évaluer en sessions neuves**, sur deux volets rapportés séparément :
-   - **Rejeu `ls20`** : mesure la réutilisation d’une solution connue. Seuls les bras désignés reçoivent le trajet validé ; les témoins ne reçoivent rien.
-   - **Transfert vers des jeux inédits** : utiliser des jeux tenus à l’écart de l’exploration et du gel. Seule la méthode apprise est exportable. Exclure trajets, grilles, coordonnées, identifiants codés en dur et toute réponse précalculée. Un témoin sans import permet de mesurer le bénéfice de la méthode.
+1. **Explore** authorized games under a fixed budget. Record observation, hypothesis, verifiable computation, action, verification, and retention outside future agents' reach. Separate rejected hypotheses from validated artifacts.
+2. **Freeze and inventory** version, fingerprint, provenance, type, supporting verification, and authorized import conditions. Separate level-specific artifacts from generic methods; test both representations on the same development cases.
+3. **Evaluate in fresh sessions**, reporting separately:
+   - **`ls20` replay:** reuse of a known solution. Only designated arms receive the validated path.
+   - **Transfer to unseen games:** use games withheld from exploration and artifact freeze. Export only the generic method, not paths, grids, coordinates, hard-coded identifiers, or precomputed answers. Include a no-import control.
 
-L’apprentissage est ici un changement des connaissances ou procédures réutilisées à l’inférence, pas un changement des poids. Enregistrer séparément la découverte pendant un essai et le bénéfice d’un acquis importé.
+Learning here means a change in knowledge or procedures reused at inference, not a change in weights. Record within-trial discovery separately from benefits of imported artifacts.
 
-## 3. Contrôles de comparabilité
+## 3. Comparability controls
 
-- Fixer modèle/version et paramètres, objectif, version du runner, format et résolution des observations, règles d’interaction, limites de contexte, budgets (actions, temps, tokens/appels si mesurables) et politique d’arrêt. Seules les instructions d’interface et les variables testées diffèrent. Les observations disponibles sont équivalentes **à état identique** ; les trajectoires libres peuvent ensuite diverger.
-- Réinitialiser le jeu à chaque essai. Comparer niveau de départ et empreinte de la grille initiale par paire jeu/graine ; isoler et documenter tout écart avant analyse. Enregistrer la graine du jeu et celle du modèle si disponibles.
-- Préenregistrer le nombre de répétitions par jeu/condition, la métrique principale, les exclusions et la règle de comparaison. Appairer les conditions par jeu/état initial et contrebalancer l’ordre (AB/BA ou ordre randomisé par bloc). Ne partager aucun état entre répétitions indépendantes.
-- Démarrer avec un espace isolé. Les agents évalués ne voient ni ce dossier, ni les anciens logs, plans ou résultats ni les traces des autres conditions ; exposer uniquement les artefacts explicitement autorisés dans le bras testé. Les observateurs consignent les traces séparément. Standardiser les interventions humaines (aucune aide au jeu, sauf si c’est une condition prévue) et les journaliser.
+- Fix model/version and settings, objective, runner version, observation format and resolution, interaction rules, context limits, budgets, and stopping policy. Available observations are equivalent at the same state; free trajectories may subsequently diverge.
+- Reset the game for each trial. Pair by game/seed, starting level, and initial grid fingerprint; document deviations. Record game and model seeds when available.
+- Preregister repetitions, primary metric, exclusions, and comparison rule. Pair by initial state and counterbalance or randomize order by block. Do not share state between independent repetitions.
+- Isolate evaluated agents from this folder, prior logs, plans, outcomes, and other conditions' traces. Expose only authorized artifacts. Observers log separately. Standardize and record human intervention.
 
-## 4. Mesures et analyse
+## 4. Measures and analysis
 
-- **Réussite** : validation du premier niveau confirmée par le runner avant l’arrêt. Rapporter numérateur et dénominateur sur tous les essais assignés, avec les timeouts séparés. **Niveaux à budget fixe** : compter les niveaux confirmés au plafond commun ; pour les essais arrêtés plus tôt sans pouvoir établir leur résultat au plafond, rapporter le nombre observé à l’arrêt à part. Prévoir une analyse de sensibilité où ce nombre est utilisé comme borne basse.
-- **Coups jusqu’à la première validation** : compter les coups confirmés jusqu’à l’événement (inclus). Donner la distribution chez les réussites avec son dénominateur ; signaler les non-réussites comme censurées au dernier coup confirmé, sans les traiter comme des validations. Interpréter le nombre de coups avec le taux de réussite pour éviter de favoriser un bras à faible taux de réussite.
-- **Ressources** : temps mural total, tokens entrée/sortie si exposés, appels par type (outil, modèle, calcul automatique, runner) et interventions humaines avec leur nature. Séparer actions tentées et confirmées ; préciser l’index et l’issue de toute action non confirmée. Ne pas assimiler budget de timeout et durée réellement mesurée.
-- Publier les décomptes par bras et différences appariées à état initial égal, avec dispersion/incertitude et taille des échantillons. Ne pas agréger le rejeu et le transfert ni en déduire un score global ARC-AGI-3.
+- **Success:** runner-confirmed first-level completion before stopping. Report numerator and denominator for all assigned trials and separate timeouts. At a fixed action budget, count levels confirmed at the shared cap; report early-stopped trials separately. A sensitivity analysis may use observed levels as a lower bound.
+- **Moves to first completion:** count confirmed moves through the event. Report the distribution and denominator among successes; treat failures as censored at their last confirmed move, not as successes. Interpret alongside success rate.
+- **Resources:** total wall time, input/output tokens if exposed, calls by type, and human interventions. Separate attempted and confirmed actions, and identify unconfirmed outcomes. Do not equate configured timeout with observed duration.
+- Report per-arm counts and paired differences at equal initial state, sample size, dispersion, and uncertainty. Do not combine replay with transfer or infer an overall ARC-AGI-3 score.
 
-## 5. Fiche à remplir pour chaque essai
+## 5. Trial record
 
 ```text
-ID / date / opérateur :
-Volet (exploration / rejeu / transfert / compaction / restauration) :
-Condition / paire / répétition / rang dans l’ordre :
-Jeu / graine jeu / niveau initial / empreinte grille initiale :
-Modèle / version / paramètres / graine si disponible :
-Runner / version / objectif / observations accessibles :
-Budgets (actions / temps / tokens / appels) :
-Contrôles d’isolation vérifiés :
-Persistance / règles de contexte / Auto Compute (déclencheur et plafond) :
-Artefacts importés (type, version, empreinte, autorisation) :
-Compaction ou restauration (étape, objets testés, résultats, coût) :
-Première validation confirmée (oui/non, coup si connu) :
-Niveaux confirmés au plafond / à l’arrêt :
-Actions tentées / dernier coup confirmé / actions non confirmées et indices :
-Motif d’arrêt / timeout configuré / temps mural mesuré :
-Tokens entrée et sortie / appels par type :
-Interventions humaines (nombre et nature) :
-Acquis validés / références aux traces / écarts au protocole :
+ID / date / operator:
+Track: exploration / replay / transfer / compaction / restoration
+Condition / pair / repetition / order:
+Game / seed / starting level / initial grid fingerprint:
+Model / version / settings / seed if available:
+Runner / version / objective / available observations:
+Budgets: actions / time / tokens / calls
+Verified isolation controls:
+Persistence / context rules / Auto Compute trigger and cap:
+Imported artifacts: type / version / fingerprint / authorization
+Compaction or restoration: step / objects / results / cost
+First level confirmed: yes/no, move if known
+Levels confirmed at cap / at stop:
+Actions attempted / last confirmed / unconfirmed outcomes and indices:
+Stop reason / configured timeout / measured wall time:
+Input and output tokens / calls by type:
+Human interventions and nature:
+Validated artifacts / trace references / protocol deviations:
 ```
 
-Utiliser « non renseigné » dans la fiche et des cellules vides à l’export pour les valeurs inconnues ; zéro signifie un décompte observé.
+Mark unknowns as not reported and leave export cells empty. Zero denotes an observed count.
