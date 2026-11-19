@@ -1,0 +1,9 @@
+{
+  "title": "RLM Harnesses and Inference-Time Learning: An Observational Case Study",
+  "creators": [{ "name": "Peynichou, William" }],
+  "description": "Independent, non-peer-reviewed practitioner report on Claake Code, persistent Python, an exploratory ARC-AGI-3 pilot, and 30-day personal usage statistics. Findings are descriptive and token savings are not measured. The study and original data use CC BY 4.0; scripts use MIT, as described in LICENCES.md.",
+  "keywords": ["RLM", "agent harness", "inference-time learning", "persistent Python", "ARC-AGI-3", "observability"],
+  "language": "eng",
+  "license": "cc-by-4.0",
+  "access_right": "open"
+}

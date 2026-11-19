@@ -2,7 +2,7 @@
 
 An independent practitioner report on Claake Code: a persistent Python harness, an exploratory ARC-AGI-3 pilot, and 30 days of personal usage observability.
 
-**[Read the complete study](etude/etude.md)** | [Data and protocol](etude/README.md) | [Publication checklist](PUBLICATION.md)
+**[Read the complete study](etude/etude.md)** | [Download the illustrated PDF](etude/inference-learning-study.pdf) | [Data and protocol](etude/README.md) | [Publication checklist](PUBLICATION.md)
 
 ## Findings and limitations
 
