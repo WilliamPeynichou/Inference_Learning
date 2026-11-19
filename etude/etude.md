@@ -1,6 +1,6 @@
 # Harness RLM et apprentissage à l’inférence : retour d’expérience sur un usage personnel
 
-**Version de travail publique — retour d’expérience indépendant, non évalué par les pairs.** Ce document rassemble les observations de l’auteur, développeur et utilisateur de Claake Code, un pilote sur ARC-AGI-3 et des exports agrégés sur 30 jours. Les dates exactes, l’historique complet du pilote et certaines définitions restent à confirmer. L’auteur est aussi développeur du système étudié : cette proximité est utile pour comprendre le fonctionnement, mais peut influencer l’interprétation.
+**Version de travail publique — retour d’expérience indépendant, non évalué par les pairs.** Les observations et essais décrits ici ont été réalisés dans **Claake Code, l’IDE développé par l’auteur**, qui en est également utilisateur. Ce document rassemble un pilote sur ARC-AGI-3 et des exports agrégés sur 30 jours. Les dates exactes, l’historique complet du pilote et certaines définitions restent à confirmer. Cette proximité avec le système étudié aide à en comprendre le fonctionnement, mais peut influencer l’interprétation.
 
 ## Résumé
 
@@ -16,7 +16,7 @@ Un pilote sur le jeu `ls20` d’ARC-AGI-3 rapporte une validation en 15 puis 13 
 
 Un modèle produit des réponses à partir du contexte qui lui est transmis. Le **harness** est l’environnement logiciel qui organise son travail : il prépare ce contexte, donne accès à des outils, reçoit leurs résultats et coordonne la suite des opérations. Deux parcours utilisant le même modèle peuvent donc se comporter différemment si leurs outils, leur état et leurs règles d’interaction diffèrent.
 
-Dans Claake Code, le chat classique et le chat RLM sont deux parcours distincts. Le premier présente à l’agent des outils spécialisés. Le second s’appuie sur Prime Agent et un environnement Python persistant ; Prime expose notamment un REPL dans lequel l’agent peut exécuter du code et appeler des capacités programmatiques. **Ce n’est pas une opposition absolue entre « avec Python » et « sans Python »** : les capacités exactes du chat classique dépendent de sa configuration et doivent être précisées pour chaque essai.
+Les essais présentés ont été menés dans [Claake Code](https://github.com/WilliamPeynichou/ClaakeCode), l’IDE personnel développé par l’auteur. Son chat classique et son chat RLM sont deux parcours distincts. Le premier présente à l’agent des outils spécialisés. Le second s’appuie sur Prime Agent et un environnement Python persistant ; Prime expose notamment un REPL dans lequel l’agent peut exécuter du code et appeler des capacités programmatiques. **Ce n’est pas une opposition absolue entre « avec Python » et « sans Python »** : les capacités exactes du chat classique dépendent de sa configuration et doivent être précisées pour chaque essai.
 
 L’intérêt pratique est de déplacer une partie du travail de reconstruction vers un état exploitable : données structurées, fonctions, hypothèses et plans peuvent être maintenus au cours d’une session plutôt que reconstitués entièrement à chaque étape. Cela ouvre des possibilités ; leur coût et leurs bénéfices doivent encore être mesurés.
 
