@@ -1,0 +1,8 @@
+harness,provider,model,responses,conversations,input_tokens,prompt_tokens,output_tokens,reasoning_tokens,cache_read_tokens,cache_creation_tokens,tool_calls,tool_errors
+
+measured_harness,provider,model,subagent,turns,usage_turns,errors,interrupted,rewrites,median_duration_ms,median_first_token_ms,median_tokens_per_second,speed_samples
+rlm,anthropic,claude-opus-5-5,false,30,0,0,1,0,19835.5,20450,,0
+rlm,anthropic,claude-sonnet-5-5,false,10,0,0,0,0,74421,9045,,0
+rlm,openai,gpt-6.1-sol,false,22,0,9,0,0,48505,9974.5,,0
+rlm,openai,gpt-6.1-terra,false,5,0,0,0,0,32375,7273,,0
+rlm,openai,gpt-6.2-sol,false,12,0,0,0,0,31922,12570.5,,0

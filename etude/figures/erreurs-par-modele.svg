@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+<title id="title">Erreurs de tour enregistrées par modèle</title>
+<desc id="desc">Comparaison descriptive des erreurs de tour dans les exports de chat classique et RLM, par modèle commun. Les tâches ne sont pas appariées et les causes des erreurs peuvent différer.</desc>
+<style>text{font-family:system-ui,sans-serif;fill:#172637;font-size:16px}.title{font:bold 29px Georgia,serif}.small{font-size:14px;fill:#405266}.header{font-size:14px;font-weight:bold;fill:#345577}</style>
+<rect width="960" height="560" fill="white"/>
+<text x="40" y="38" class="header">FIGURE 4 / USAGE PERSONNEL SUR 30 JOURS</text>
+<text x="40" y="80" class="title">Erreurs de tour enregistrées, par modèle</text>
+<text x="40" y="111" class="small">Tâches non appariées · toutes erreurs confondues · effectifs différents</text>
+<text x="40" y="153" class="header">MODÈLE</text><text x="330" y="153" class="header">CHAT CLASSIQUE</text><text x="610" y="153" class="header">RLM</text>
+<path d="M40 169H920" stroke="#dde4ea"/>
+<text x="40" y="194">claude-opus-5-5</text>
+<text x="330" y="194">18 / 163 (11.0 %)</text>
+<text x="610" y="194">0 / 30 (0.0 %)</text>
+<path d="M40 222H920" stroke="#dde4ea"/>
+<text x="40" y="247">claude-sonnet-5-5</text>
+<text x="330" y="247">7 / 137 (5.1 %)</text>
+<text x="610" y="247">0 / 10 (0.0 %)</text>
+<path d="M40 275H920" stroke="#dde4ea"/>
+<text x="40" y="300">gpt-6.1-sol</text>
+<text x="330" y="300">12 / 99 (12.1 %)</text>
+<text x="610" y="300">9 / 22 (40.9 %)</text>
+<path d="M40 328H920" stroke="#dde4ea"/>
+<text x="40" y="353">gpt-6.1-terra</text>
+<text x="330" y="353">1 / 25 (4.0 %)</text>
+<text x="610" y="353">0 / 5 (0.0 %)</text>
+<path d="M40 381H920" stroke="#dde4ea"/>
+<text x="40" y="406">gpt-6.2-sol</text>
+<text x="330" y="406">0 / 39 (0.0 %)</text>
+<text x="610" y="406">0 / 12 (0.0 %)</text>
+<path d="M40 440H920" stroke="#9caab7"/>
+<text x="40" y="470" class="small">Un taux nul avec peu de tours ne démontre pas l’absence de risque. Les erreurs</text>
+<text x="40" y="492" class="small">peuvent provenir du modèle, du fournisseur, du harness ou d’un autre composant.</text>
+<text x="40" y="525" class="small">Source : sections measured_harness des exports CSV fournis ; données agrégées.</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="462" viewBox="0 0 960 462" role="img" aria-labelledby="title desc">
+<title id="title">Trois observations à confronter aux traces</title>
+<desc id="desc">Tableau qualitatif des hypothèses sur les tours à froid et à chaud, les tokens et le cache, et les limites provider. Aucun résultat quantifié.</desc>
+<style>
+  text{font-family:system-ui,sans-serif;fill:#182637}
+  .title{font-family:Georgia,serif;font-size:32px;font-weight:700}
+  .body{font-size:16px}.note{font-size:14px;fill:#405266}
+  .meta{font-size:13px;letter-spacing:1.4px;font-weight:700;fill:#345577}
+  .strong{font-size:16px;font-weight:700}.light{font-size:16px;font-weight:700;fill:white}
+</style>
+<rect width="960" height="462" fill="#fff"/>
+<text x="48" y="40" class="meta" text-anchor="start">FIGURE 03    /    PLAN DE MESURE</text>
+<text x="48" y="82" class="title" text-anchor="start">Trois observations à confronter aux traces</text>
+<path d="M48 105L912 105" fill="none" stroke="#8695a4"/>
+<text x="48" y="139" class="meta" text-anchor="start">Observation d’usage</text>
+<text x="492" y="139" class="meta" text-anchor="start">Mesure proposée</text>
+<path d="M472 121L472 403" fill="none" stroke="#c9d0d7"/>
+<path d="M48 158L912 158" fill="none" stroke="#c9d0d7"/>
+<text x="48" y="179" class="strong" text-anchor="start">Tours et réemploi</text>
+<text x="48" y="202" class="note" text-anchor="start">Circuit perçu plus long à froid,</text>
+<text x="48" y="222" class="note" text-anchor="start">puis plus court à mesure que Compute intervient.</text>
+<text x="492" y="190" class="body" text-anchor="start">Appels, temps et objets réutilisés</text>
+<text x="492" y="213" class="body" text-anchor="start">par tâche validée, à qualité comparable.</text>
+<path d="M48 237L912 237" fill="none" stroke="#c9d0d7"/>
+<text x="48" y="258" class="strong" text-anchor="start">Tokens et cache</text>
+<text x="48" y="281" class="note" text-anchor="start">Peu de texte visible ; l’entrée paraît</text>
+<text x="48" y="301" class="note" text-anchor="start">dominante. Rôle des retours Python inconnu.</text>
+<text x="492" y="269" class="body" text-anchor="start">Séparer entrée, sortie, raisonnement,</text>
+<text x="492" y="292" class="body" text-anchor="start">cache provider et retours Python transmis.</text>
+<path d="M48 316L912 316" fill="none" stroke="#c9d0d7"/>
+<text x="48" y="337" class="strong" text-anchor="start">Limites provider</text>
+<text x="48" y="360" class="note" text-anchor="start">Limite perçue plus tard sur Opus 5.5,</text>
+<text x="48" y="380" class="note" text-anchor="start">Fable 5.2 et 6.2 Sol.</text>
+<text x="492" y="348" class="body" text-anchor="start">Travail avant blocage et délai de reprise,</text>
+<text x="492" y="371" class="body" text-anchor="start">par modèle et fenêtre de quota.</text>
+<path d="M48 403L912 403" fill="none" stroke="#c9d0d7"/>
+<text x="48" y="433" class="note" text-anchor="start">Source : observations utilisateur non chiffrées, distinctes des résultats du pilote.</text>
+</svg>

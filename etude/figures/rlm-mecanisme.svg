@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="382" viewBox="0 0 960 382" role="img" aria-labelledby="title desc">
+<title id="title">De l’observation au réemploi du calcul</title>
+<desc id="desc">La grille du jeu est représentée en objets Python. Une recherche en largeur utilise les objets et fonctions conservés. Le runner confirme les coups. Le transfert reste à tester.</desc>
+<style>
+  text{font-family:system-ui,sans-serif;fill:#182637}
+  .title{font-family:Georgia,serif;font-size:32px;font-weight:700}
+  .body{font-size:16px}.note{font-size:14px;fill:#405266}
+  .meta{font-size:13px;letter-spacing:1.4px;font-weight:700;fill:#345577}
+  .strong{font-size:16px;font-weight:700}.light{font-size:16px;font-weight:700;fill:white}
+</style>
+<rect width="960" height="382" fill="#fff"/>
+<text x="48" y="40" class="meta" text-anchor="start">FIGURE 02    /    SCHÉMA CONCEPTUEL</text>
+<text x="48" y="82" class="title" text-anchor="start">De l’observation au réemploi du calcul</text>
+<path d="M48 105L912 105" fill="none" stroke="#8695a4"/>
+<text x="48" y="138" class="note" text-anchor="start">Schéma de lecture du pilote ls20 ; pas une mesure de fréquence ou de performance.</text>
+<rect x="48" y="173" width="204" height="87" fill="#f3f6f9" stroke="#aebcca"/>
+<text x="62" y="204" class="strong" text-anchor="start">Observation</text>
+<text x="62" y="234" class="note" text-anchor="start">Grilles du jeu</text>
+<text x="260" y="220" class="strong" text-anchor="middle">→</text>
+<rect x="268" y="173" width="204" height="87" fill="#f3f6f9" stroke="#aebcca"/>
+<text x="282" y="204" class="strong" text-anchor="start">État Python</text>
+<text x="282" y="234" class="note" text-anchor="start">Objets et fonctions</text>
+<text x="480" y="220" class="strong" text-anchor="middle">→</text>
+<rect x="488" y="173" width="204" height="87" fill="#f3f6f9" stroke="#aebcca"/>
+<text x="502" y="204" class="strong" text-anchor="start">Calcul</text>
+<text x="502" y="234" class="note" text-anchor="start">Recherche en largeur</text>
+<text x="700" y="220" class="strong" text-anchor="middle">→</text>
+<rect x="708" y="173" width="204" height="87" fill="#f3f6f9" stroke="#aebcca"/>
+<text x="722" y="204" class="strong" text-anchor="start">Vérification</text>
+<text x="722" y="234" class="note" text-anchor="start">Coups validés</text>
+<text x="48" y="298" class="body" text-anchor="start">Réemploi : les grilles et fonctions conservées servent au recalcul du trajet.</text>
+<text x="48" y="327" class="note" text-anchor="start">À tester : économie de reconstruction et transfert d’une méthode à un jeu inédit.</text>
+<text x="48" y="354" class="note" text-anchor="start">Source : rapport.md. Ni mise à jour des poids ni effet causal établi.</text>
+</svg>
