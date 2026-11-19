@@ -2,7 +2,7 @@
 
 Retour d’expérience indépendant sur Claake Code : fonctionnement d’un harness RLM, pilote exploratoire ARC-AGI-3 et observabilité d’un usage personnel sur 30 jours.
 
-**[Lire l’étude complète](etude/etude.md)** · [Données et protocole](etude/README.md) · [Brouillon LinkedIn](linkedin/brouillon-linkedin.md)
+**[Lire l’étude complète](etude/etude.md)** · [Données et protocole](etude/README.md)
 
 ## Résultats et limites en bref
 
@@ -18,7 +18,6 @@ etude/annexes/         Rapport du pilote, protocole et observabilité
 etude/donnees/         Exports personnels et données du pilote
 etude/figures/         Visuels SVG intégrés à l’étude
 etude/scripts/         Générateurs reproductibles des figures
-linkedin/              Brouillon de présentation
 PUBLICATION.md         Vérifications GitHub et Zenodo avant diffusion
 ```
 
