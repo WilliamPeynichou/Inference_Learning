@@ -35,4 +35,6 @@ Each performance CSV contains **two consecutive tables with different headers** 
 
 ## Citation and reuse
 
-The study, original figures, and original data in `etude/` are available under **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)**. Scripts in `etude/scripts/` are under the **[MIT License](etude/scripts/LICENSE)**. See [LICENCES.md](LICENCES.md) for scope and third-party rights. An archive version and DOI will be added after Zenodo publication.
+The study, original figures, and original data in `etude/` are available under **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)**. Scripts in `etude/scripts/` are under the **[MIT License](etude/scripts/LICENSE)**. See [LICENCES.md](LICENCES.md) for scope and third-party rights. Archived on Zenodo: [10.5281/zenodo.24373229](https://doi.org/10.5281/zenodo.24373229) (concept DOI, all versions). Version v0.1.0: [10.5281/zenodo.24373230](https://doi.org/10.5281/zenodo.24373230).
+
+Suggested citation: Peynichou, W. (2026). *RLM Harnesses and Inference-Time Learning: An Observational Case Study* (v0.1.0). Zenodo. https://doi.org/10.5281/zenodo.24373230
